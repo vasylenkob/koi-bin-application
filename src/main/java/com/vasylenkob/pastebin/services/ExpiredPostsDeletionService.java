@@ -12,14 +12,14 @@ import java.util.List;
 @AllArgsConstructor
 public class ExpiredPostsDeletionService {
     private final MetaDataService metaDataService;
-    private final PostService postService;
+    private final PostsService postsService;
 
     @Scheduled(fixedRate = 5000)
     public void deleteExpiredPosts(){
         List<MetaData> expiredPosts = metaDataService.getAllMetaData()
                 .stream().filter(MetaData::isExpired)
                 .toList();
-        expiredPosts.forEach(postService::deletePost);
+        expiredPosts.forEach(postsService::deletePost);
         log.info("{} post(s) deleted", expiredPosts.size());
     }
 }

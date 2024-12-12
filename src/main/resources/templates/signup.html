@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            color: #37474f;
+        }
+
+        header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .nav-link {
+            color: #546e7e;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #007bff;
+        }
+
+        .nav-item.active .nav-link {
+            color: #007bff;
+            font-weight: 600;
+        }
+
+        section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .icon {
+            font-size: 24px;
+            color: #546e7e;
+            transition: color 0.3s ease;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .icon.github:hover {
+            color: #000000;
+        }
+
+        .icon.telegram:hover {
+            color: #0088cc;
+        }
+
+        .icon.instagram:hover {
+            color: #C13584;
+        }
+
+        footer {
+            padding: 15px;
+            text-align: center;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<section>
+    <div class="container pb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 d-flex flex-column justify-content-center">
+                <h1 class="display-5 fw-bold lh-1 mb-3">Sign Up for Koi-bin</h1>
+                <p class="lead">Create a new account to start using Koi-bin.</p>
+                <form action="/auth/signup" method="POST" th:object="${signUpForm}" class="mt-4">
+                    <!-- Username Field -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" th:field="*{username}" class="form-control" id="username" name="username" placeholder="Choose a username" required>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" th:field="*{email}" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" th:field="*{password}" class="form-control" id="password" name="password" placeholder="Choose a password" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+                <div class="mt-3">
+                    <p>Already have an account? <a href="/auth/login">Log In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer mt-auto">
+    <div class="container">
+        <p class="mb-1">Developed by @vasylenkob</p>
+        <a href="https://github.com/vasylenkob" class="icon github" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://t.me/vasylenkob" class="icon telegram" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="https://www.instagram.com/vasylenko.b/" class="icon instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+</footer>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+</body>
+</html>

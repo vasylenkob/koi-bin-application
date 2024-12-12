@@ -1,9 +1,9 @@
-package com.vasylenkob.pastebin.dto;
+package com.vasylenkob.pastebin.models;
 
 import lombok.Data;
 
 @Data
-public class SignUpUser {
+public class SignUpForm {
     private String username;
     private String email;
     private String password;

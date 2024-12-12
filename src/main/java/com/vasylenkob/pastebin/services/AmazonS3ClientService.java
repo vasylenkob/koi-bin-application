@@ -1,6 +1,6 @@
 package com.vasylenkob.pastebin.services;
 
-import com.vasylenkob.pastebin.dto.SavedPost;
+import com.vasylenkob.pastebin.models.SavedPost;
 import com.vasylenkob.pastebin.entities.MetaData;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

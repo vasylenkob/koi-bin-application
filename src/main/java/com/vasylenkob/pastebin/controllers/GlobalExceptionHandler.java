@@ -1,43 +1,52 @@
 package com.vasylenkob.pastebin.controllers;
 
 import com.vasylenkob.pastebin.exceptions.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<String> handleUserNotFound(UserNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    public String handleUserNotFound(UserNotFoundException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
     }
 
     @ExceptionHandler(VerificationCodeExpiredException.class)
-    public ResponseEntity<String> handleCodeExpired(VerificationCodeExpiredException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    public String handleCodeExpired(VerificationCodeExpiredException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
     }
 
     @ExceptionHandler(InvalidVerificationCodeException.class)
-    public ResponseEntity<String> handleInvalidCode(InvalidVerificationCodeException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    public String handleInvalidCode(InvalidVerificationCodeException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
     }
 
     @ExceptionHandler(UserAlreadyVerifiedException.class)
-    public ResponseEntity<String> handleUserAlreadyVerified(UserAlreadyVerifiedException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-    }
-    @ExceptionHandler(FailedToSendEmailException.class)
-    public ResponseEntity<String> handleFailedToSendEmail(FailedToSendEmailException ex){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-    }
-    @ExceptionHandler(PostDoesNotExistException.class)
-    public ResponseEntity<String> handlePostDoesNotExist(PostDoesNotExistException ex){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<String> handleUserAlreadyExist(UserAlreadyExistsException ex){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    public String handleUserAlreadyVerified(UserAlreadyVerifiedException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
     }
 
+    @ExceptionHandler(FailedToSendEmailException.class)
+    public String handleFailedToSendEmail(FailedToSendEmailException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
+    }
+
+    @ExceptionHandler(PostDoesNotExistException.class)
+    public String handlePostDoesNotExist(PostDoesNotExistException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public String handleUserAlreadyExist(UserAlreadyExistsException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
+    }
 }

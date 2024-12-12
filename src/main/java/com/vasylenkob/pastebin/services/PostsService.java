@@ -1,8 +1,8 @@
 package com.vasylenkob.pastebin.services;
 
-import com.vasylenkob.pastebin.dto.PostForm;
-import com.vasylenkob.pastebin.dto.SavedPost;
-import com.vasylenkob.pastebin.dto.ShortPostDetails;
+import com.vasylenkob.pastebin.models.PostForm;
+import com.vasylenkob.pastebin.models.SavedPost;
+import com.vasylenkob.pastebin.models.ShortPostDetails;
 import com.vasylenkob.pastebin.entities.MetaData;
 import com.vasylenkob.pastebin.entities.User;
 import com.vasylenkob.pastebin.exceptions.PostDoesNotExistException;
@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class PostService {
+public class PostsService {
     private final MetaDataService metaDataService;
     private final HashService hashService;
     private final AmazonS3ClientService s3;
@@ -64,13 +64,11 @@ public class PostService {
 
     public ShortPostDetails createShortPostDetails(MetaData metaData){
         String hash = hashService.makeHash(metaData);
-        String link = ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .path("/" + hash)
-                .toUriString();
+        LocalDateTime expirationDate = metaData.getExpirationDate();
         return ShortPostDetails.builder()
-                .link(link)
+                .hash(hash)
                 .title(metaData.getTitle())
+                .expirationDate(expirationDate)
                 .build();
     }
 

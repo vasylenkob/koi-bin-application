@@ -1,4 +1,4 @@
-package com.vasylenkob.pastebin.dto;
+package com.vasylenkob.pastebin.models;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class SavedPost {
-    private String postTitle;
-    private String content;
+public class ShortPostDetails {
+    private String hash;
+    private String title;
     private LocalDateTime expirationDate;
 }

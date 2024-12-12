@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -43,13 +42,11 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**", "/{id}").permitAll()
+                        .requestMatchers("/auth/**", "/post/**", "/", "/images/**").permitAll()
                         .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
                         .loginPage("/auth/login")
-                        .defaultSuccessUrl("/")
-                        .failureUrl("/auth/login?error=true")
+                        .defaultSuccessUrl("/createpost")
                         .permitAll());
         return http.build();
     }

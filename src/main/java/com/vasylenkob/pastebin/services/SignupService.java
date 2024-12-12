@@ -1,7 +1,7 @@
 package com.vasylenkob.pastebin.services;
 
-import com.vasylenkob.pastebin.dto.SignUpUser;
-import com.vasylenkob.pastebin.dto.VerifyUser;
+import com.vasylenkob.pastebin.models.SignUpForm;
+import com.vasylenkob.pastebin.models.VerifyUserForm;
 import com.vasylenkob.pastebin.entities.User;
 import com.vasylenkob.pastebin.exceptions.*;
 import lombok.RequiredArgsConstructor;
@@ -22,17 +22,17 @@ public class SignupService {
     @Value("${verificationCode.lifetimeMinutes}")
     private Long codeLifeTimeMinutes;
 
-    public void signUp(SignUpUser signUpUser){
-        if (userService.existsByEmail(signUpUser.getEmail())) {
+    public void signUp(SignUpForm signUpForm){
+        if (userService.existsByEmail(signUpForm.getEmail())) {
             throw new UserAlreadyExistsException("Email is already in use");
         }
-        if (userService.existsByUsername(signUpUser.getUsername())) {
+        if (userService.existsByUsername(signUpForm.getUsername())) {
             throw new UserAlreadyExistsException("Username is already in use");
         }
         User user = User.builder()
-                .username(signUpUser.getUsername())
-                .email(signUpUser.getEmail())
-                .password(passwordEncoder.encode(signUpUser.getPassword()))
+                .username(signUpForm.getUsername())
+                .email(signUpForm.getEmail())
+                .password(passwordEncoder.encode(signUpForm.getPassword()))
                 .verificationCode(generateVerificationCode())
                 .verificationCodeExpiration(LocalDateTime.now().plusMinutes(codeLifeTimeMinutes))
                 .build();
@@ -40,14 +40,14 @@ public class SignupService {
         userService.save(user);
     }
 
-    public void verify(VerifyUser verifyUser) {
-        Optional<User> optionalUser = userService.findByEmail(verifyUser.getEmail());
+    public void verify(VerifyUserForm verifyUserForm) {
+        Optional<User> optionalUser = userService.findByEmail(verifyUserForm.getEmail());
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
             if (user.getVerificationCodeExpiration().isBefore(LocalDateTime.now())){
                 throw new VerificationCodeExpiredException("Verification code is expired");
             }
-            if (user.getVerificationCode().equals(verifyUser.getVerificationCode())){
+            if (user.getVerificationCode().equals(verifyUserForm.getVerificationCode())){
                 user.setEnabled(true);
                 user.setVerificationCode(null);
                 user.setVerificationCodeExpiration(null);

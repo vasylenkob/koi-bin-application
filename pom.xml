@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.vasylenkob</groupId>
-	<artifactId>pastebin</artifactId>
+	<artifactId>koibin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pastebin</name>
-	<description>Pastebin app</description>
+	<name>koibin</name>
+	<description>Koi-bin web app</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -71,11 +71,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>3.3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.12.6</version>
 		</dependency>
 	</dependencies>
 

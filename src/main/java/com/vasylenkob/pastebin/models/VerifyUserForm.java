@@ -1,9 +1,9 @@
-package com.vasylenkob.pastebin.dto;
+package com.vasylenkob.pastebin.models;
 
 import lombok.Data;
 
 @Data
-public class VerifyUser {
+public class VerifyUserForm {
     private String email;
     private String verificationCode;
 }
